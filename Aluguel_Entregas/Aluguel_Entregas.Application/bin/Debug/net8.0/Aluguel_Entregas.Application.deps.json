@@ -1,0 +1,36 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v8.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v8.0": {
+      "Aluguel_Entregas.Application/1.0.0": {
+        "dependencies": {
+          "Aluguel_Entregas.Domain": "1.0.0"
+        },
+        "runtime": {
+          "Aluguel_Entregas.Application.dll": {}
+        }
+      },
+      "Aluguel_Entregas.Domain/1.0.0": {
+        "runtime": {
+          "Aluguel_Entregas.Domain.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "Aluguel_Entregas.Application/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Aluguel_Entregas.Domain/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}
