@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Aluguel_Entregas.Domain.Commands.Moto
+namespace Aluguel_Entregas.Domain.Commands.Motorcycle
 {
     public class CreateMotorcycleCommand
     {

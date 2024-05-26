@@ -22,7 +22,8 @@ namespace Aluguel_Entregas.API.Feature.Motorcycle.Validators
                 .NotEmpty()
                 .WithMessage("Plate can not be empty")
                 .Length(7).WithMessage("The sign must have 7 characters")
-                .Matches(@"^[A-Za-z]{3}\d{1}[A-Za-z0-9]{1}\d{2}$");
+                .Matches(@"^[A-Za-z]{3}\d{1}[A-Za-z0-9]{1}\d{2}$")
+                .WithMessage("Plate is not in the correct format (aaa2a22)");
         }
     }
 }

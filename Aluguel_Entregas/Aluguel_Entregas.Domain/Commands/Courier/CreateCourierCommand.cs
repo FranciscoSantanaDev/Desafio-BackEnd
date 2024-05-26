@@ -1,38 +1,33 @@
-﻿using Aluguel_Entregas.Domain.Enum;
+﻿using Aluguel_Entregas.Domain.Entities;
+using Aluguel_Entregas.Domain.Enum;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Aluguel_Entregas.Domain.Entities
+namespace Aluguel_Entregas.Domain.Commands.Courier
 {
-    public class Courier : EntityBase
+    public class CreateCourierCommand
     {
         public string Name { get; private set; }
         public string Cnpj { get; private set; }
         public DateTime Birth { get; private set; }
         public string License { get; private set; }
         public DriverLicensesTypesEnum LicensesType { get; private set; }
+        public string Username { get; private set; }
+        public string Password { get; private set; }
 
-        public User User { get; private set; }
 
-        //todo: imagem da carteira
-
-        public Courier(string name, string cnpj, DateTime birth, string license, DriverLicensesTypesEnum licensesTypes, string username, string password)
+        public CreateCourierCommand(string name, string cnpj, DateTime birth, string license, DriverLicensesTypesEnum licensesTypes, string username, string password)
         {
             Name = name;
             Cnpj = cnpj;
             Birth = birth;
             License = license;
             LicensesType = licensesTypes;
-            User = new User(username, password, UserTypeEnum.Courier);
-            Id = Guid.NewGuid();
-        }
-
-        public Courier()
-        {
-            
+            Username = username;
+            Password = password;
         }
     }
 }

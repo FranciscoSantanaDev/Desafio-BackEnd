@@ -10,5 +10,8 @@ namespace Aluguel_Entregas.Domain.Contracts.Services
     public interface IMotorcycleServices
     {
         Task<(bool sucess, string message)> CreateMotorcycle(Motorcycle motorcycle);
+        Task<(bool sucess, string message)> UpdateMotorcycle(Motorcycle motorcycle);
+
+        Task<Motorcycle> Get(Guid Id);
     }
 }

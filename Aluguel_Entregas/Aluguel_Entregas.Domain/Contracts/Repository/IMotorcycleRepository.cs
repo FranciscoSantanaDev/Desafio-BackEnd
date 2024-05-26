@@ -7,10 +7,13 @@ namespace Aluguel_Entregas.Domain.Contracts.Repository
     {
         Task<(bool sucess, string message)> Create(Motorcycle motorcycle);
 
-        Task Update(Motorcycle motorcycle);
+        Task<(bool sucess, string message)> Update(Motorcycle motorcycle);
 
-        Task Delete (Motorcycle motorcycle);
+        Task<(bool sucess, string message)> Delete (Motorcycle motorcycle);
 
+        Task<IEnumerable<Motorcycle>> Get(string? plate);
+
+        Task<Motorcycle> Get(Guid Id);
 
     }
 }

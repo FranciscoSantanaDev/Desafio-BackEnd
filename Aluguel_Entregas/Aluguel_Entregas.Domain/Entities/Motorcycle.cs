@@ -16,6 +16,9 @@ namespace Aluguel_Entregas.Domain.Entities
             Plate = plate;
             Id = Guid.NewGuid();
         }
-
+        public void Update(string plate)
+        {
+            Plate = plate;
+        }
     }
 }

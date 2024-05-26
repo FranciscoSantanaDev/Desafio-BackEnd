@@ -1,12 +1,10 @@
-﻿using Aluguel_Entregas.Domain.Commands.Moto;
-using Aluguel_Entregas.Domain.Contracts.Handler;
+﻿using Aluguel_Entregas.Domain.Contracts.Handler;
 using Aluguel_Entregas.Domain.Contracts.Services;
-using Aluguel_Entregas.Domain;
-using Microsoft.AspNetCore.Mvc;
+using Aluguel_Entregas.Domain.Commands.Motorcycle;
 
 namespace Aluguel_Entregas.Application.Feature.Motorcycle
 {
-    public class CreateMotorcycleHandler : ICrateMotorcycleHandler
+    public class CreateMotorcycleHandler : ICreateMotorcycleHandler
     {
         IMotorcycleServices _motorcycleServices;
         public CreateMotorcycleHandler(IMotorcycleServices motorcycleServices)

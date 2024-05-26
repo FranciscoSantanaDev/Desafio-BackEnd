@@ -14,6 +14,8 @@ namespace Aluguel_Entregas.Infra.Configuration
         public static void ConfigureRepositories(this IServiceCollection serviceCollection)
         {
             serviceCollection.AddScoped<IMotorcycleRepository, MotorcycleRepository>();
+            serviceCollection.AddScoped<ICourierRepository, CourierRepository>();
+            serviceCollection.AddScoped<IUserRepository, UserRepository>();
         }
     }
 }

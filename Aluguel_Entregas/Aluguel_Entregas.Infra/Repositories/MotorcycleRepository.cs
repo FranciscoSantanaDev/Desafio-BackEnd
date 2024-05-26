@@ -40,16 +40,59 @@ namespace Aluguel_Entregas.Infra.Repositories
            
         }
 
-        public async Task Delete(Motorcycle motorcycle)
+        public async Task<(bool sucess, string message)> Delete(Motorcycle motorcycle)
         {
-             _dbSet.Remove(motorcycle);
-            await _applicationDbContext.SaveChangesAsync();
+            try
+            {
+                _dbSet.Remove(motorcycle);
+                await _applicationDbContext.SaveChangesAsync();
+                return (true, string.Empty);
+            }
+            catch (DbUpdateConcurrencyException ex)
+            {
+                return (false, ex.InnerException?.Message);
+            }
+            catch (Exception ex)
+            {
+                return (false, ex.InnerException?.Message);
+            }
+            
         }
 
-        public async Task Update(Motorcycle motorcycle)
+        public async Task<IEnumerable<Motorcycle>> Get(string? plate)
         {
-            _dbSet.Update(motorcycle);
-            await _applicationDbContext.SaveChangesAsync();
+            var query = _dbSet.AsQueryable();
+
+            if (!string.IsNullOrEmpty(plate))
+            {
+                query = query.Where(c => c.Plate == plate);
+            }
+
+            return await query.ToListAsync();
+        }
+
+        public async Task<Motorcycle> Get(Guid Id)
+        {
+            return await _dbSet.FirstAsync(m=>m.Id ==Id);
+        }
+
+        public async Task<(bool sucess, string message)> Update(Motorcycle motorcycle)
+        {
+            try
+            {
+                _dbSet.Update(motorcycle);
+                await _applicationDbContext.SaveChangesAsync();
+                return (true, string.Empty);
+            }
+            catch (DbUpdateConcurrencyException ex)
+            {
+                return (false, ex.InnerException?.Message);
+            }
+            catch (Exception ex)
+            {
+                return (false, ex.InnerException?.Message);
+            }
+            
         }
     }
 }

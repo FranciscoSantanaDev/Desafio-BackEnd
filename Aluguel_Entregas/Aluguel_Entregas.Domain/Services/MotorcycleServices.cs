@@ -1,11 +1,6 @@
 ﻿using Aluguel_Entregas.Domain.Contracts.Repository;
 using Aluguel_Entregas.Domain.Contracts.Services;
 using Aluguel_Entregas.Domain.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Aluguel_Entregas.Domain.Services
 {
@@ -20,6 +15,16 @@ namespace Aluguel_Entregas.Domain.Services
         public async Task<(bool sucess , string message)> CreateMotorcycle(Motorcycle motorcycle)
         {
             return await _motorcycleRepository.Create(motorcycle);
+        }
+
+        public async Task<(bool sucess, string message)> UpdateMotorcycle(Motorcycle motorcycle)
+        {
+            return await _motorcycleRepository.Update(motorcycle);
+        }
+
+        public async Task<Motorcycle> Get(Guid Id)
+        {
+            return await _motorcycleRepository.Get(Id);
         }
     }
 }

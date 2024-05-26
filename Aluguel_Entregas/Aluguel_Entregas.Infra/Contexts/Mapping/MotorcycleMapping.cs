@@ -29,6 +29,5 @@ public class MotorcycleMapping : IEntityTypeConfiguration<Motorcycle>
            .IsRequired();
 
         builder.HasIndex(c => c.Plate).IsUnique();    
-
     }
 }

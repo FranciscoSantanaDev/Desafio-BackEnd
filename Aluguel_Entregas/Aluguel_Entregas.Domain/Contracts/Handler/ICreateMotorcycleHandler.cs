@@ -1,9 +1,8 @@
-﻿using Aluguel_Entregas.Domain.Commands.Moto;
-using Microsoft.AspNetCore.Mvc;
+﻿using Aluguel_Entregas.Domain.Commands.Motorcycle;
 
 namespace Aluguel_Entregas.Domain.Contracts.Handler
 {
-    public interface ICrateMotorcycleHandler
+    public interface ICreateMotorcycleHandler
     {
         Task<(bool sucess, string message)> Handle(CreateMotorcycleCommand createMotorcycleCommand);
     }

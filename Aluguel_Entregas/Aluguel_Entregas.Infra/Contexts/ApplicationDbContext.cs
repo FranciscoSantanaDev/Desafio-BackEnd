@@ -8,7 +8,9 @@ namespace Aluguel_Entregas.Infra.Contexts;
 public class ApplicationDbContext : DbContext
 {
     public DbSet<Motorcycle> Motorcycles { get; set; }
-    
+    public DbSet<Courier> Courier { get; set; }
+    public DbSet<User> User { get; set; }
+
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
         : base(options)
     {
@@ -17,5 +19,7 @@ public class ApplicationDbContext : DbContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         new MotorcycleMapping().Configure(modelBuilder.Entity<Motorcycle>());
+        new CourierMapping().Configure(modelBuilder.Entity<Courier>());
+        new UserMapping().Configure(modelBuilder.Entity<User>());
     }
 }
