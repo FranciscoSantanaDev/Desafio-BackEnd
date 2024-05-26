@@ -9,6 +9,6 @@ namespace Aluguel_Entregas.Domain.Contracts.Services
 {
     public interface IMotorcycleServices
     {
-        Task<string> CreateMotorcycle(Motorcycle motorcycle);
+        Task<(bool sucess, string message)> CreateMotorcycle(Motorcycle motorcycle);
     }
 }

@@ -1,3 +1,0 @@
-﻿<Project>
-  <Import Project="..\buildMultiTargeting\Aluguel_Entregas.API.props" />
-</Project>

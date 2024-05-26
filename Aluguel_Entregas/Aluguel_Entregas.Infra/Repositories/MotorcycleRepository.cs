@@ -21,10 +21,23 @@ namespace Aluguel_Entregas.Infra.Repositories
             _dbSet = _applicationDbContext.Motorcycles;
         }
 
-        public async Task Create(Motorcycle motorcycle)
+        public async Task<(bool sucess, string message)> Create(Motorcycle motorcycle)
         {
-            await _dbSet.AddAsync(motorcycle);
-            await _applicationDbContext.SaveChangesAsync();
+            try
+            {
+                await _dbSet.AddAsync(motorcycle);
+                await _applicationDbContext.SaveChangesAsync();
+                return (true, string.Empty);
+            }
+            catch (DbUpdateConcurrencyException ex)
+            {
+                return (false, ex.InnerException?.Message);
+            }
+            catch (Exception ex)
+            {
+                return (false, ex.InnerException?.Message);
+            }
+           
         }
 
         public async Task Delete(Motorcycle motorcycle)

@@ -13,10 +13,10 @@ namespace Aluguel_Entregas.API.Feature.Motorcycle.Endpoints
 
             users.MapPost("", async (ICrateMotorcycleHandler createMotorcycleService, [FromBody] CreateMotorcycleRequest request) =>
             {
-                await createMotorcycleService.Handle(new CreateMotorcycleCommand(request.Year, request.Model,
+               var result =  await createMotorcycleService.Handle(new CreateMotorcycleCommand(request.Year, request.Model,
                     request.Plate));
 
-                return Results.Accepted();
+                return result.sucess ? Results.Ok() : Results.BadRequest(result.message);
             })
                 .WithName("CreateMotorcycle")
                 .WithOpenApi()

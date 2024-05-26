@@ -41,6 +41,9 @@ namespace Aluguel_Entregas.Infra.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("Plate")
+                        .IsUnique();
+
                     b.ToTable("Motorcycle", (string)null);
                 });
 #pragma warning restore 612, 618

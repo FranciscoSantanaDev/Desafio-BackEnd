@@ -5,7 +5,7 @@ namespace Aluguel_Entregas.Domain.Contracts.Repository
 {
     public interface IMotorcycleRepository
     {
-        Task Create(Motorcycle motorcycle);
+        Task<(bool sucess, string message)> Create(Motorcycle motorcycle);
 
         Task Update(Motorcycle motorcycle);
 

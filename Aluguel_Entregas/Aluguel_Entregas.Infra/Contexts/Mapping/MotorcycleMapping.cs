@@ -28,5 +28,7 @@ public class MotorcycleMapping : IEntityTypeConfiguration<Motorcycle>
            .HasColumnType("varchar(7)")
            .IsRequired();
 
+        builder.HasIndex(c => c.Plate).IsUnique();    
+
     }
 }

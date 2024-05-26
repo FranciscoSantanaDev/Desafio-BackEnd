@@ -17,16 +17,9 @@ namespace Aluguel_Entregas.Domain.Services
         {
             _motorcycleRepository = motorcycleRepository;
         }
-        public async Task<string> CreateMotorcycle(Motorcycle motorcycle)
+        public async Task<(bool sucess , string message)> CreateMotorcycle(Motorcycle motorcycle)
         {
-            try
-            {
-                await _motorcycleRepository.Create(motorcycle);
-                return "Motorcycle created";
-            }
-            catch(Exception e) {
-                return e.Message;
-            }
+            return await _motorcycleRepository.Create(motorcycle);
         }
     }
 }
