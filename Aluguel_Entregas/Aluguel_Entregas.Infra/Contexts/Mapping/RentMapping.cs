@@ -38,6 +38,9 @@ public class RentMapping : IEntityTypeConfiguration<Rent>
             .HasOne(r => r.Courier);
 
         builder
-            .HasOne(r => r.Motorcycle);
+            .HasOne(r => r.Motorcycle).WithOne(r=>r.Rent).HasPrincipalKey<Motorcycle>(m=>m.Id);
+
+        builder
+           .HasOne(r => r.Courier).WithMany(r => r.Rents).HasPrincipalKey(m => m.Id);
     }
 }

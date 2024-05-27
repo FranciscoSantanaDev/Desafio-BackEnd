@@ -45,19 +45,46 @@ namespace Aluguel_Entregas.Infra.Migrations
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     Name = table.Column<string>(type: "varchar(150)", nullable: false),
-                    Cnpj = table.Column<string>(type: "varchar(14)", nullable: false),
+                    Cnpj = table.Column<string>(type: "varchar(18)", nullable: false),
                     Birth = table.Column<DateTime>(type: "TIMESTAMP", nullable: false),
                     License = table.Column<string>(type: "varchar(11)", nullable: false),
-                    LicensesType = table.Column<int>(type: "integer", nullable: false),
-                    UserId = table.Column<Guid>(type: "uuid", nullable: false)
+                    LicensesType = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Courier", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Courier_User_UserId",
-                        column: x => x.UserId,
+                        name: "FK_Courier_User_Id",
+                        column: x => x.Id,
                         principalTable: "User",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Rent",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    RentalPlans = table.Column<int>(type: "integer", nullable: false),
+                    StartDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    EndDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    ExpectedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    TotalValue = table.Column<double>(type: "double precision", nullable: false),
+                    CourierId = table.Column<Guid>(type: "uuid", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Rent", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Rent_Courier_CourierId",
+                        column: x => x.CourierId,
+                        principalTable: "Courier",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Rent_Motorcycle_Id",
+                        column: x => x.Id,
+                        principalTable: "Motorcycle",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -75,15 +102,15 @@ namespace Aluguel_Entregas.Infra.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Courier_UserId",
-                table: "Courier",
-                column: "UserId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Motorcycle_Plate",
                 table: "Motorcycle",
                 column: "Plate",
                 unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Rent_CourierId",
+                table: "Rent",
+                column: "CourierId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_User_Username",
@@ -95,6 +122,9 @@ namespace Aluguel_Entregas.Infra.Migrations
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "Rent");
+
             migrationBuilder.DropTable(
                 name: "Courier");
 

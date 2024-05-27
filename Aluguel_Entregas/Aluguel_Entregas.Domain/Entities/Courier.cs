@@ -17,6 +17,9 @@ namespace Aluguel_Entregas.Domain.Entities
 
         public User User { get; private set; }
 
+        public ICollection<Rent> Rents { get; private set; }
+
+
         //todo: imagem da carteira
 
         public Courier(string name, string cnpj, DateTime birth, string license, DriverLicensesTypesEnum licensesTypes, string username, string password)

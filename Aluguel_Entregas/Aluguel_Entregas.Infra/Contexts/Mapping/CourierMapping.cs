@@ -43,6 +43,6 @@ public class CourierMapping : IEntityTypeConfiguration<Courier>
         builder.HasIndex(c => c.License)
             .IsUnique();
 
-        builder.HasOne(c => c.User);
+        builder.HasOne(c => c.User).WithOne(c=>c.Courier).HasPrincipalKey<User>(u=>u.Id);
     }
 }

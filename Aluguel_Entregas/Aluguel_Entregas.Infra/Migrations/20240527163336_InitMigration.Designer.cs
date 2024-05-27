@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Aluguel_Entregas.Infra.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240526202055_InitMigration")]
+    [Migration("20240527163336_InitMigration")]
     partial class InitMigration
     {
         /// <inheritdoc />
@@ -28,7 +28,6 @@ namespace Aluguel_Entregas.Infra.Migrations
             modelBuilder.Entity("Aluguel_Entregas.Domain.Entities.Courier", b =>
                 {
                     b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
                     b.Property<DateTime>("Birth")
@@ -36,7 +35,7 @@ namespace Aluguel_Entregas.Infra.Migrations
 
                     b.Property<string>("Cnpj")
                         .IsRequired()
-                        .HasColumnType("varchar(14)");
+                        .HasColumnType("varchar(18)");
 
                     b.Property<string>("License")
                         .IsRequired()
@@ -49,9 +48,6 @@ namespace Aluguel_Entregas.Infra.Migrations
                         .IsRequired()
                         .HasColumnType("varchar(150)");
 
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uuid");
-
                     b.HasKey("Id");
 
                     b.HasIndex("Cnpj")
@@ -59,8 +55,6 @@ namespace Aluguel_Entregas.Infra.Migrations
 
                     b.HasIndex("License")
                         .IsUnique();
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("Courier", (string)null);
                 });
@@ -88,6 +82,36 @@ namespace Aluguel_Entregas.Infra.Migrations
                         .IsUnique();
 
                     b.ToTable("Motorcycle", (string)null);
+                });
+
+            modelBuilder.Entity("Aluguel_Entregas.Domain.Entities.Rent", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid?>("CourierId")
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("EndDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTime>("ExpectedDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<int>("RentalPlans")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime>("StartDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<double>("TotalValue")
+                        .HasColumnType("double precision");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CourierId");
+
+                    b.ToTable("Rent", (string)null);
                 });
 
             modelBuilder.Entity("Aluguel_Entregas.Domain.Entities.User", b =>
@@ -118,12 +142,46 @@ namespace Aluguel_Entregas.Infra.Migrations
             modelBuilder.Entity("Aluguel_Entregas.Domain.Entities.Courier", b =>
                 {
                     b.HasOne("Aluguel_Entregas.Domain.Entities.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
+                        .WithOne("Courier")
+                        .HasForeignKey("Aluguel_Entregas.Domain.Entities.Courier", "Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Aluguel_Entregas.Domain.Entities.Rent", b =>
+                {
+                    b.HasOne("Aluguel_Entregas.Domain.Entities.Courier", "Courier")
+                        .WithMany("Rents")
+                        .HasForeignKey("CourierId");
+
+                    b.HasOne("Aluguel_Entregas.Domain.Entities.Motorcycle", "Motorcycle")
+                        .WithOne("Rent")
+                        .HasForeignKey("Aluguel_Entregas.Domain.Entities.Rent", "Id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Courier");
+
+                    b.Navigation("Motorcycle");
+                });
+
+            modelBuilder.Entity("Aluguel_Entregas.Domain.Entities.Courier", b =>
+                {
+                    b.Navigation("Rents");
+                });
+
+            modelBuilder.Entity("Aluguel_Entregas.Domain.Entities.Motorcycle", b =>
+                {
+                    b.Navigation("Rent")
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Aluguel_Entregas.Domain.Entities.User", b =>
+                {
+                    b.Navigation("Courier")
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

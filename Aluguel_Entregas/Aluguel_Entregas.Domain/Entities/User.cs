@@ -14,7 +14,7 @@ namespace Aluguel_Entregas.Domain.Entities
 
         public UserTypeEnum UserType { get; private set; }
 
-        public Courier Courier { get; private set; }
+        public Courier Courier { get; set; }
 
         public User(string username,string password, UserTypeEnum userType, Courier courier)
         {
