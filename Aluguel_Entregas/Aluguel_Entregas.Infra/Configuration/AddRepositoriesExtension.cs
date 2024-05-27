@@ -1,4 +1,5 @@
-﻿using Aluguel_Entregas.Domain.Contracts.Repository;
+﻿using Aluguel_Entregas.Domain.Contracts.Repository.Courier;
+using Aluguel_Entregas.Domain.Contracts.Repository.Motorcycle;
 using Aluguel_Entregas.Infra.Repositories;
 using Microsoft.Extensions.DependencyInjection;
 using System;

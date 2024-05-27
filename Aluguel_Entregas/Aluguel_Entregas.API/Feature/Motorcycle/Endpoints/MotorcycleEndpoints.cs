@@ -1,11 +1,10 @@
 ﻿using Aluguel_Entregas.API.Feature.Motorcycle.Request;
 using Aluguel_Entregas.Domain.Commands.Motorcycle;
-using Aluguel_Entregas.Domain.Contracts.Handler;
-using Aluguel_Entregas.Domain.Contracts.Repository;
+using Aluguel_Entregas.Domain.Contracts.Handler.Motorcycle;
+using Aluguel_Entregas.Domain.Contracts.Repository.Motorcycle;
+using Aluguel_Entregas.Domain.Contracts.Services;
 using Aluguel_Entregas.Domain.Enum;
-using Aluguel_Entregas.Infra.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace Aluguel_Entregas.API.Feature.Motorcycle.Endpoints
 {
@@ -55,7 +54,7 @@ namespace Aluguel_Entregas.API.Feature.Motorcycle.Endpoints
              {
                  if (authManager.IsAuthorized(context.Request.Headers["Authorization"], UserTypeEnum.Admin))
                  {
-                    var result =  await updateMotorcycleHandler.Handle(new UpdateMotorcycleCommand(id, request.Plate));
+                     var result = await updateMotorcycleHandler.Handle(new UpdateMotorcycleCommand(id, request.Plate));
 
                      return result.sucess ? Results.Ok() : Results.BadRequest(result.message);
                  }
@@ -63,11 +62,27 @@ namespace Aluguel_Entregas.API.Feature.Motorcycle.Endpoints
                  {
                      return Results.Unauthorized();
                  }
-                
              })
-         .WithName("AtualizaContato")
+         .WithName("UpdateMotorcycle")
          .WithOpenApi()
          .AddFluentValidationFilter();
+
+            endpoint.MapDelete("{id}", async (IDeleteMotorcycleHandler deleteMotorcycleHandler, [FromRoute] Guid id, IAuthManager authManager, HttpContext context) =>
+            {
+                if (authManager.IsAuthorized(context.Request.Headers["Authorization"], UserTypeEnum.Admin))
+                {
+                   var result =  await deleteMotorcycleHandler.Handle(new DeleteMotorcycleCommand(id));
+
+                    return result.sucess ? Results.Ok() : Results.BadRequest(result.message);
+                }
+                else
+                {
+                    return Results.Unauthorized();
+                }
+            })
+           .WithName("DeleteMotorcycle")
+           .WithOpenApi()
+           .AddFluentValidationFilter();
         }
     }
 }

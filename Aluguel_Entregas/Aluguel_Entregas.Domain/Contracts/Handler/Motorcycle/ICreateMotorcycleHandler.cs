@@ -1,6 +1,6 @@
 ﻿using Aluguel_Entregas.Domain.Commands.Motorcycle;
 
-namespace Aluguel_Entregas.Domain.Contracts.Handler
+namespace Aluguel_Entregas.Domain.Contracts.Handler.Motorcycle
 {
     public interface ICreateMotorcycleHandler
     {

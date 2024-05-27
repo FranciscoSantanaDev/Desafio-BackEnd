@@ -4,18 +4,19 @@ using Aluguel_Entregas.Domain.Contracts.Handler.Motorcycle;
 
 namespace Aluguel_Entregas.Application.Feature.Motorcycle
 {
-    public class UpdateMotorcycleHandler : IUpdateMotorcycleHandler
+    public class DeleteMotorcycleHandler : IDeleteMotorcycleHandler
     {
         IMotorcycleServices _motorcycleServices;
-        public UpdateMotorcycleHandler(IMotorcycleServices motorcycleServices)
+        public DeleteMotorcycleHandler(IMotorcycleServices motorcycleServices)
         {
             _motorcycleServices = motorcycleServices;
         }
-        public async Task<(bool sucess, string message)> Handle(UpdateMotorcycleCommand command)
+        public async Task<(bool sucess, string message)> Handle(DeleteMotorcycleCommand command)
         {
             var motorcycle = await _motorcycleServices.Get(command.Id);
-            motorcycle.Update(command.Plate);
-            return await _motorcycleServices.UpdateMotorcycle(motorcycle);
+
+            //todo verificação de locação
+            return await _motorcycleServices.DeleteMotorcycle(motorcycle);
         }
     }
 }

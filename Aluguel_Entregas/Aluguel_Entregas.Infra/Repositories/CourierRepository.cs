@@ -1,4 +1,4 @@
-﻿using Aluguel_Entregas.Domain.Contracts.Repository;
+﻿using Aluguel_Entregas.Domain.Contracts.Repository.Courier;
 using Aluguel_Entregas.Domain.Entities;
 using Aluguel_Entregas.Infra.Contexts;
 using Microsoft.EntityFrameworkCore;

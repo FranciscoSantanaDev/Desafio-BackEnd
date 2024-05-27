@@ -1,4 +1,4 @@
-﻿using Aluguel_Entregas.Domain.Contracts.Repository;
+﻿using Aluguel_Entregas.Domain.Contracts.Repository.Courier;
 using Aluguel_Entregas.Domain.Entities;
 using Aluguel_Entregas.Infra.Contexts;
 using Microsoft.EntityFrameworkCore;
@@ -23,7 +23,7 @@ namespace Aluguel_Entregas.Infra.Repositories
        
         public async Task<User> GetUser(string username)
         {
-              return await _dbSet.FirstOrDefaultAsync(u => u.Username == username);
+              return await _dbSet.Include(u=>u.Courier).FirstOrDefaultAsync(u => u.Username == username);
         }
     }
 }

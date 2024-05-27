@@ -1,5 +1,5 @@
 ﻿using Aluguel_Entregas.Domain.Commands.Courier;
-using Aluguel_Entregas.Domain.Contracts.Handler;
+using Aluguel_Entregas.Domain.Contracts.Handler.Courier;
 using Aluguel_Entregas.Domain.Contracts.Services;
 
 namespace Aluguel_Entregas.Application.Feature.Courier

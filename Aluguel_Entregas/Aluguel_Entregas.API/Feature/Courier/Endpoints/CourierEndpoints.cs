@@ -1,6 +1,6 @@
 ﻿using Aluguel_Entregas.API.Feature.Courier.Request;
 using Aluguel_Entregas.Domain.Commands.Courier;
-using Aluguel_Entregas.Domain.Contracts.Handler;
+using Aluguel_Entregas.Domain.Contracts.Handler.Courier;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Aluguel_Entregas.API.Feature.Courier.Endpoint

@@ -11,6 +11,8 @@ public class ApplicationDbContext : DbContext
     public DbSet<Courier> Courier { get; set; }
     public DbSet<User> User { get; set; }
 
+    public DbSet<Rent> Rents { get; set; }
+
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
         : base(options)
     {
@@ -21,5 +23,6 @@ public class ApplicationDbContext : DbContext
         new MotorcycleMapping().Configure(modelBuilder.Entity<Motorcycle>());
         new CourierMapping().Configure(modelBuilder.Entity<Courier>());
         new UserMapping().Configure(modelBuilder.Entity<User>());
+        new RentMapping().Configure(modelBuilder.Entity<Rent>());
     }
 }

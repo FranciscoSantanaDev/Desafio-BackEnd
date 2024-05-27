@@ -11,7 +11,8 @@ namespace Aluguel_Entregas.Domain.Contracts.Services
     {
         Task<(bool sucess, string message)> CreateMotorcycle(Motorcycle motorcycle);
         Task<(bool sucess, string message)> UpdateMotorcycle(Motorcycle motorcycle);
-
+        Task<(bool sucess, string message)> DeleteMotorcycle(Motorcycle motorcycle);
         Task<Motorcycle> Get(Guid Id);
+        Task<Motorcycle> GetAvailable();
     }
 }

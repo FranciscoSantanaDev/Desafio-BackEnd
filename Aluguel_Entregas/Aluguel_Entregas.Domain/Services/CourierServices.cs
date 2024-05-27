@@ -1,4 +1,4 @@
-﻿using Aluguel_Entregas.Domain.Contracts.Repository;
+﻿using Aluguel_Entregas.Domain.Contracts.Repository.Courier;
 using Aluguel_Entregas.Domain.Contracts.Services;
 using Aluguel_Entregas.Domain.Entities;
 

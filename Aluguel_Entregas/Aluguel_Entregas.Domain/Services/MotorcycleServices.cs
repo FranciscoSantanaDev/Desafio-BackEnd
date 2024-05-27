@@ -1,4 +1,4 @@
-﻿using Aluguel_Entregas.Domain.Contracts.Repository;
+﻿using Aluguel_Entregas.Domain.Contracts.Repository.Motorcycle;
 using Aluguel_Entregas.Domain.Contracts.Services;
 using Aluguel_Entregas.Domain.Entities;
 
@@ -22,9 +22,19 @@ namespace Aluguel_Entregas.Domain.Services
             return await _motorcycleRepository.Update(motorcycle);
         }
 
-        public async Task<Motorcycle> Get(Guid Id)
+        public async Task<(bool sucess, string message)> DeleteMotorcycle(Motorcycle motorcycle)
         {
-            return await _motorcycleRepository.Get(Id);
+            return await _motorcycleRepository.Delete(motorcycle);
+        }
+
+        public async Task<Motorcycle> Get(Guid id)
+        {
+            return await _motorcycleRepository.Get(id);
+        }
+
+        public async Task<Motorcycle> GetAvailable()
+        {
+            return await _motorcycleRepository.GetAvailable();
         }
     }
 }

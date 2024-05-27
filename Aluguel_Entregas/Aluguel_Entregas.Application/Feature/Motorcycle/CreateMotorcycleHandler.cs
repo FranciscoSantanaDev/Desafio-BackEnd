@@ -1,6 +1,6 @@
-﻿using Aluguel_Entregas.Domain.Contracts.Handler;
-using Aluguel_Entregas.Domain.Contracts.Services;
+﻿using Aluguel_Entregas.Domain.Contracts.Services;
 using Aluguel_Entregas.Domain.Commands.Motorcycle;
+using Aluguel_Entregas.Domain.Contracts.Handler.Motorcycle;
 
 namespace Aluguel_Entregas.Application.Feature.Motorcycle
 {

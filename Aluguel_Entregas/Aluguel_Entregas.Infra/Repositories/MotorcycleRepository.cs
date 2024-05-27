@@ -1,4 +1,4 @@
-﻿using Aluguel_Entregas.Domain.Contracts.Repository;
+﻿using Aluguel_Entregas.Domain.Contracts.Repository.Motorcycle;
 using Aluguel_Entregas.Domain.Entities;
 using Aluguel_Entregas.Infra.Contexts;
 using Microsoft.EntityFrameworkCore;
@@ -74,6 +74,10 @@ namespace Aluguel_Entregas.Infra.Repositories
         public async Task<Motorcycle> Get(Guid Id)
         {
             return await _dbSet.FirstAsync(m=>m.Id ==Id);
+        }
+        public async Task<Motorcycle> GetAvailable()
+        {
+            return await _dbSet.Include(m=>m.Rent).FirstAsync(m=>m.Rent == null);
         }
 
         public async Task<(bool sucess, string message)> Update(Motorcycle motorcycle)

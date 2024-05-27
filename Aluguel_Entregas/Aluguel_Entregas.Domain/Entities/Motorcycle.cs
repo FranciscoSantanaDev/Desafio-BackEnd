@@ -9,7 +9,18 @@ namespace Aluguel_Entregas.Domain.Entities
 
         public string Plate { get; private set; }
 
-        public Motorcycle( int year, string model , string plate)
+        public Rent Rent { get; private set; }
+
+        public Motorcycle( int year, string model , string plate, Rent rent)
+        {
+            Year = year;
+            Model = model;
+            Plate = plate;
+            Rent = rent;
+            Id = Guid.NewGuid();
+        }
+
+        public Motorcycle(int year, string model, string plate)
         {
             Year = year;
             Model = model;
