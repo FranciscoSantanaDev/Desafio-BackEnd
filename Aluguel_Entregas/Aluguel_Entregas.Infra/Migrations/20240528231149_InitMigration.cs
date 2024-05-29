@@ -71,7 +71,8 @@ namespace Aluguel_Entregas.Infra.Migrations
                     EndDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     ExpectedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     TotalValue = table.Column<double>(type: "double precision", nullable: false),
-                    CourierId = table.Column<Guid>(type: "uuid", nullable: true)
+                    CourierId = table.Column<Guid>(type: "uuid", nullable: true),
+                    MotorcycleId = table.Column<Guid>(type: "uuid", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -82,11 +83,10 @@ namespace Aluguel_Entregas.Infra.Migrations
                         principalTable: "Courier",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_Rent_Motorcycle_Id",
-                        column: x => x.Id,
+                        name: "FK_Rent_Motorcycle_MotorcycleId",
+                        column: x => x.MotorcycleId,
                         principalTable: "Motorcycle",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateIndex(
@@ -111,6 +111,12 @@ namespace Aluguel_Entregas.Infra.Migrations
                 name: "IX_Rent_CourierId",
                 table: "Rent",
                 column: "CourierId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Rent_MotorcycleId",
+                table: "Rent",
+                column: "MotorcycleId",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_User_Username",

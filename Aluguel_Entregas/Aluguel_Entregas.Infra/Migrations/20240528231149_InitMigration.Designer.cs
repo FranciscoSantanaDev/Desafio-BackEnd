@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Aluguel_Entregas.Infra.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240527163336_InitMigration")]
+    [Migration("20240528231149_InitMigration")]
     partial class InitMigration
     {
         /// <inheritdoc />
@@ -87,6 +87,7 @@ namespace Aluguel_Entregas.Infra.Migrations
             modelBuilder.Entity("Aluguel_Entregas.Domain.Entities.Rent", b =>
                 {
                     b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
                     b.Property<Guid?>("CourierId")
@@ -97,6 +98,9 @@ namespace Aluguel_Entregas.Infra.Migrations
 
                     b.Property<DateTime>("ExpectedDate")
                         .HasColumnType("timestamp with time zone");
+
+                    b.Property<Guid?>("MotorcycleId")
+                        .HasColumnType("uuid");
 
                     b.Property<int>("RentalPlans")
                         .HasColumnType("integer");
@@ -110,6 +114,9 @@ namespace Aluguel_Entregas.Infra.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("CourierId");
+
+                    b.HasIndex("MotorcycleId")
+                        .IsUnique();
 
                     b.ToTable("Rent", (string)null);
                 });
@@ -158,9 +165,7 @@ namespace Aluguel_Entregas.Infra.Migrations
 
                     b.HasOne("Aluguel_Entregas.Domain.Entities.Motorcycle", "Motorcycle")
                         .WithOne("Rent")
-                        .HasForeignKey("Aluguel_Entregas.Domain.Entities.Rent", "Id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("Aluguel_Entregas.Domain.Entities.Rent", "MotorcycleId");
 
                     b.Navigation("Courier");
 
@@ -174,8 +179,7 @@ namespace Aluguel_Entregas.Infra.Migrations
 
             modelBuilder.Entity("Aluguel_Entregas.Domain.Entities.Motorcycle", b =>
                 {
-                    b.Navigation("Rent")
-                        .IsRequired();
+                    b.Navigation("Rent");
                 });
 
             modelBuilder.Entity("Aluguel_Entregas.Domain.Entities.User", b =>

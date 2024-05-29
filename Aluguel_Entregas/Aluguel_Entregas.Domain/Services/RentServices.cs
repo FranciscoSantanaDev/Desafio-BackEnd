@@ -30,19 +30,20 @@ namespace Aluguel_Entregas.Domain.Services
         {
             var forfeit = ForfeitByPlan(rent.RentalPlans);
             var valuebyplan = ValueByPlan(rent.RentalPlans);
-            if (rent.ExpectedDate < rent.EndDate)
+            if (rent.ExpectedDate.Date < rent.EndDate.Date)
             {
-                int days = (int)(rent.StartDate.Date - rent.ExpectedDate.Date).TotalDays;
+                int days = (int)(rent.ExpectedDate.Date - rent.StartDate.Date).TotalDays;
                 int daysToForfeit = (int)(rent.EndDate.Date - rent.ExpectedDate.Date).TotalDays;
                 double value = days * valuebyplan;
-                return value += (daysToForfeit * valuebyplan) * (forfeit / 100);
+                double daily = (daysToForfeit * valuebyplan);
+                return value +(daily * (forfeit / 100));
             }
-            else if (rent.ExpectedDate >= rent.EndDate)
+            else if (rent.ExpectedDate.Date >= rent.EndDate.Date)
             {
-                int days = (int)(rent.StartDate.Date - rent.EndDate.Date).TotalDays;
+                int days = (int)(rent.EndDate.Date - rent.StartDate.Date).TotalDays;
                 int daysToForfeit = (int)(rent.ExpectedDate.Date - rent.EndDate.Date).TotalDays;
                 double value = days * valuebyplan;
-                return value += daysToForfeit * 50;
+                return value + (daysToForfeit * 50);
             }
 
             return 0;
@@ -81,7 +82,7 @@ namespace Aluguel_Entregas.Domain.Services
             return 0;
         }
 
-        private int ForfeitByPlan(RentalPlansEnum rentalPlans)
+        private double ForfeitByPlan(RentalPlansEnum rentalPlans)
         {
             switch (rentalPlans)
             {

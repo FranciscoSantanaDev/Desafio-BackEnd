@@ -77,7 +77,7 @@ namespace Aluguel_Entregas.Infra.Repositories
         }
         public async Task<Motorcycle> GetAvailable()
         {
-            return await _dbSet.Include(m=>m.Rent).FirstAsync(m=>m.Rent == null);
+            return await _dbSet.Include(m=>m.Rent).FirstOrDefaultAsync(m=>m.Rent == null);
         }
 
         public async Task<(bool sucess, string message)> Update(Motorcycle motorcycle)

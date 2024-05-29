@@ -4,6 +4,7 @@ using Aluguel_Entregas.Domain.Contracts.Handler.Motorcycle;
 using Aluguel_Entregas.Domain.Contracts.Handler.Rent;
 using Aluguel_Entregas.Domain.Services;
 using Aluguel_Entregas.Domain.Entities;
+using Aluguel_Entregas.Domain.Enum;
 
 namespace Aluguel_Entregas.Application.Feature.Rent
 {
@@ -23,13 +24,18 @@ namespace Aluguel_Entregas.Application.Feature.Rent
 
             var motorcycle = command.MotorcycleId.HasValue ? await _motorcycleServices.Get(command.MotorcycleId.Value) : await _motorcycleServices.GetAvailable();
 
-            if (motorcycle != null || motorcycle?.Rent != null)
+            if (motorcycle != null)
             {
                 var user = _authManager.GetUserBasicAuth(command.AuthHeader);
-                Domain.Entities.Rent rent = new Domain.Entities.Rent(command.RentalPlans, command.StartDate, command.ExpectedDate, user.Courier, motorcycle);
-                return await _rentServices.CreateRent(rent);
+                if (user?.Courier?.LicensesType == DriverLicensesTypesEnum.A || user?.Courier?.LicensesType == DriverLicensesTypesEnum.AB)
+                {
+                    Domain.Entities.Rent rent = new Domain.Entities.Rent(command.RentalPlans, command.StartDate, command.ExpectedDate, user.Courier, motorcycle);
+                    return await _rentServices.CreateRent(rent);
+                }
+                return (false,string.Empty);
             }
-            else {
+            else
+            {
                 return (false, "There are no motorcycles available");
             }
 

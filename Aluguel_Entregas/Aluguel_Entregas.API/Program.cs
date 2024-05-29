@@ -5,6 +5,7 @@ using Aluguel_Entregas.API.Feature.Motorcycle.Endpoints;
 using Aluguel_Entregas.Infra.Configurations;
 using Microsoft.AspNetCore.Authentication;
 using Aluguel_Entregas.API.Feature.Courier.Endpoint;
+using Aluguel_Entregas.API.Feature.Rent.Endpoint;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -34,6 +35,7 @@ app.UseHttpsRedirection();
 
 app.RegisterMotorcycleEndpoints();
 app.RegisterCourierEndpoints();
+app.RegisterRentEndpoints();
 app.Run();
 
 internal record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)

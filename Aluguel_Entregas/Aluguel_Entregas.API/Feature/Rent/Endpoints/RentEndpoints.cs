@@ -25,14 +25,12 @@ namespace Aluguel_Entregas.API.Feature.Rent.Endpoint
                 {
                     var result = await createRentHandler.Handle(new CreateRentCommand(request.RentalPlans, DateTime.Now, request.ExpectedDate, authHeader, request.MotorcycleId));
 
-                    return result.sucess ? Results.Created() : Results.BadRequest(result.message);
+                    return result.sucess ? Results.Created() : string.IsNullOrEmpty(result.message) ? Results.Unauthorized() : Results.BadRequest(result.message);
                 }
                 else
                 {
                     return Results.Unauthorized();
                 }
-
-
             })
                 .WithName("CreateRent")
                 .WithOpenApi()

@@ -28,6 +28,9 @@ public class MotorcycleMapping : IEntityTypeConfiguration<Motorcycle>
            .HasColumnType("varchar(7)")
            .IsRequired();
 
-        builder.HasIndex(c => c.Plate).IsUnique();    
+        builder.HasIndex(c => c.Plate).IsUnique();
+
+        builder
+           .HasOne(r => r.Rent).WithOne(m=>m.Motorcycle).HasForeignKey<Rent>(m => m.MotorcycleId);
     }
 }

@@ -9,7 +9,7 @@ namespace Aluguel_Entregas.Domain.Entities
 
         public string Plate { get; private set; }
 
-        public Rent Rent { get; private set; }
+        public Rent? Rent { get; private set; }
 
         public Motorcycle( int year, string model , string plate, Rent rent)
         {
@@ -31,5 +31,7 @@ namespace Aluguel_Entregas.Domain.Entities
         {
             Plate = plate;
         }
+
+        public Motorcycle() { }
     }
 }
